@@ -5,6 +5,7 @@ RUN apt update -y
 RUN apt remove --purge libreoffice* -y
 RUN apt upgrade -y
 RUN apt install wget -y
+RUN apt-get clean
 
 WORKDIR /tmp/download
 RUN wget https://community-static.aldebaran.com/resources/2.1.4.13/sdk-python/pynaoqi-python2.7-2.1.4.13-linux64.tar.gz
