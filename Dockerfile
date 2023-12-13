@@ -5,6 +5,7 @@ RUN apt update -y
 RUN apt remove --purge libreoffice* -y
 RUN apt upgrade -y
 RUN apt install wget -y
+RUN apt-get autoremove -y
 RUN apt-get clean
 
 WORKDIR /tmp/download
