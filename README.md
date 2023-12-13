@@ -23,4 +23,19 @@ then open a NOVNC graphical session in the brower with the URL:
 
     http://localhost:6080
 
-open a LXTerminal and start to develop for the NAO robot
+open a LXTerminal and start to develop for the NAO robot, test is all is correctly installed:
+
+    conda list
+
+shows the conda environment
+
+    python
+    Python 2.7.18 |Anaconda, Inc.| (default, Nov 25 2022, 06:27:37) 
+    [GCC 11.2.0] on linux2
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>> import naoqi
+    >>>
+
+if no errors, you are all set.
+Enjoy!
+;-)
