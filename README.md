@@ -36,6 +36,14 @@ shows the conda environment
     >>> import naoqi
     >>>
 
+to run the NAOqi environment, in a separated LXTerminal:
+
+    cd /tmp/naodev/naoqi-sdk-2.1.4.13-linux64
+    ./naoqi
+
+you should see:
+<img width="1047" alt="image" src="https://github.com/AAAI-DISIM-UnivAQ/docker-nao-sdk-2.1.4.13/assets/6838625/9fb534b5-53ae-447a-b419-93f31e3ead46">
+
 if no errors, you are all set.
 Enjoy!
 ;-)
