@@ -7,6 +7,12 @@ Ubuntu 14.04 with a complete Python 2.7.18 and C++ NAOqi SDK 2.1.4.13
     cd docker-nao-sdk-2.1.4.13
     docker build . -t giodegas/nao-sdk-2.1.4.13:latest
 
+or
+
+## Install pulling from docker.io
+
+    docker pull giodegas/nao-sdk-2.1.4.13:latest
+
 ## Create the container 
 
     docker run -it -p 6080:6080 -p 5900:5900 --name=naosdk giodegas/nao-sdk-2.1.4.13:latest
