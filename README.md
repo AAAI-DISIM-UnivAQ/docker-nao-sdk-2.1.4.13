@@ -5,11 +5,11 @@ Ubuntu 14.04 with a complete Python 2.7.18 and C++ NAOqi SDK 2.1.4.13
 
     git clone https://github.com/AAAI-DISIM-UnivAQ/docker-nao-sdk-2.1.4.13.git
     cd docker-nao-sdk-2.1.4.13
-    docker build . -t nao-sdk-v5
+    docker build . -t giodegas/nao-sdk-2.1.4.13:latest
 
 ## Create the container 
 
-    docker run -it -p 6080:6080 -p 5900:5900 --name=naosdk nao-sdk-v5
+    docker run -it -p 6080:6080 -p 5900:5900 --name=naosdk giodegas/nao-sdk-2.1.4.13:latest
 
 finalize the install inside the container shell (copy the shown password):
 
