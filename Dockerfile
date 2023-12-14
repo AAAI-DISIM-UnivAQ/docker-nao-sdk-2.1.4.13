@@ -43,4 +43,4 @@ ENTRYPOINT ["/bin/bash", "-c", "/usr/bin/supervisord"]
 # to build:
 #   docker build . -t nao-sdk-v5
 # to run:
-#   docker run -it -p 6080:6080 -p 5900:5900 --name=naosdk nao-sdk-v5
+#   docker run -it -p 8080:8080 --name=naosdk nao-sdk-v5
