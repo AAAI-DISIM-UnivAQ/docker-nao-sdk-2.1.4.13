@@ -1,4 +1,4 @@
-FROM --platform=linux/386 ubuntu:bionic
+FROM --platform=linux/386 ubuntu:14.04
 ARG ARCH=i386
 LABEL maintainer="jodeg@giodegas.it"
 
