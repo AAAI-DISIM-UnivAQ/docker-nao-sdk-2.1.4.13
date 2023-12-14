@@ -1,7 +1,7 @@
 FROM --platform=linux/386 ubuntu:14.04
 ARG ARCH=i386
 LABEL maintainer="jodeg@giodegas.it"
-
+RUN apt-mark hold ubuntu-advantage-tools
 RUN apt update -y && apt upgrade -y && apt install wget python2.7 -y
 
 WORKDIR /tmp/download
