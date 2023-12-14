@@ -25,4 +25,4 @@ EXPOSE 6079
 # to build:
 #   docker build . -t nao-sdk-v5
 # to run:
-#   docker run -it -p 8080:8080 --name=naosdk nao-sdk-v5
+#   docker run -it -p 6079:6079 --name=naosdk nao-sdk-v5
