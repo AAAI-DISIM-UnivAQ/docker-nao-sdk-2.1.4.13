@@ -2,7 +2,7 @@ FROM --platform=linux/386 ubuntu:14.04
 ARG ARCH=i386
 LABEL maintainer="jodeg@giodegas.it"
 
-RUN apt-get update -y && apt-get upgrade && apt-get install wget -y
+RUN apt update -y && apt upgrade && apt install wget -y
 
 WORKDIR /tmp/download
 RUN wget https://community-static.aldebaran.com/resources/2.1.4.13/sdk-python/pynaoqi-python2.7-2.1.4.13-linux32.tar.gz
