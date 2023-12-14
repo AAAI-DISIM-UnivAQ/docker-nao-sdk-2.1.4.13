@@ -1,12 +1,6 @@
-FROM golang:bullseye AS easy-novnc-build
-WORKDIR /src
-RUN go mod init build && \
-    go get github.com/geek1011/easy-novnc@v1.1.0 && \
-    go build -o /bin/easy-novnc github.com/geek1011/easy-novnc
-
 FROM --platform=linux/386 ubuntu:bionic
 ARG ARCH=i386
-ENV DEBIAN_FRONTEND=noninteractive 
+LABEL maintainer="jodeg@giodegas.it"
 
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends openbox tint2 xdg-utils lxterminal hsetroot tigervnc-standalone-server supervisor && \
@@ -15,17 +9,6 @@ RUN apt-get update -y && \
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends vim openssh-client wget curl rsync ca-certificates apulse libpulse0 firefox htop tar xzip gzip bzip2 zip unzip && \
     rm -rf /var/lib/apt/lists
-
-COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
-COPY supervisord.conf /etc/
-COPY menu.xml /etc/xdg/openbox/
-RUN echo 'hsetroot -solid "#123456" &' >> /etc/xdg/openbox/autostart
-
-RUN mkdir -p /etc/firefox
-RUN echo 'pref("browser.tabs.remote.autostart", false);' >> /etc/firefox/syspref.js
-
-RUN mkdir -p /root/.config/tint2
-COPY tint2rc /root/.config/tint2/
 
 WORKDIR /tmp/download
 RUN wget https://community-static.aldebaran.com/resources/2.1.4.13/sdk-python/pynaoqi-python2.7-2.1.4.13-linux32.tar.gz
