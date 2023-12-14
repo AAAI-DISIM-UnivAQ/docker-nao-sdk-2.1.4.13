@@ -2,13 +2,7 @@ FROM --platform=linux/386 dorowu/ubuntu-desktop-lxde-vnc:bionic
 ARG ARCH=i386
 LABEL maintainer="jodeg@giodegas.it"
 
-RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends openbox tint2 xdg-utils lxterminal hsetroot tigervnc-standalone-server supervisor && \
-    rm -rf /var/lib/apt/lists
-
-RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends vim openssh-client wget curl rsync ca-certificates apulse libpulse0 firefox htop tar xzip gzip bzip2 zip unzip && \
-    rm -rf /var/lib/apt/lists
+RUN apt-get update -y && apt-get upgrade
 
 WORKDIR /tmp/download
 RUN wget https://community-static.aldebaran.com/resources/2.1.4.13/sdk-python/pynaoqi-python2.7-2.1.4.13-linux32.tar.gz
