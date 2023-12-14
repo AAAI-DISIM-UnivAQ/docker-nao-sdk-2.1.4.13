@@ -1,12 +1,31 @@
-FROM keyz182/ubuntu-lxde-novnc
-LABEL org.opencontainers.image.authors="jodeg@giodegas.it"
+FROM golang:bullseye AS easy-novnc-build
+WORKDIR /src
+RUN go mod init build && \
+    go get github.com/geek1011/easy-novnc@v1.1.0 && \
+    go build -o /bin/easy-novnc github.com/geek1011/easy-novnc
 
-RUN apt update -y
-RUN apt remove --purge libreoffice* -y
-RUN apt upgrade -y
-RUN apt install wget -y
-RUN apt-get autoremove -y
-RUN apt-get clean
+FROM ubuntu:bionic
+ARG ARCH=i386
+ENV DEBIAN_FRONTEND=noninteractive 
+
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends openbox tint2 xdg-utils lxterminal hsetroot tigervnc-standalone-server supervisor && \
+    rm -rf /var/lib/apt/lists
+
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends vim openssh-client wget curl rsync ca-certificates apulse libpulse0 firefox htop tar xzip gzip bzip2 zip unzip && \
+    rm -rf /var/lib/apt/lists
+
+COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
+COPY supervisord.conf /etc/
+COPY menu.xml /etc/xdg/openbox/
+RUN echo 'hsetroot -solid "#123456" &' >> /etc/xdg/openbox/autostart
+
+RUN mkdir -p /etc/firefox
+RUN echo 'pref("browser.tabs.remote.autostart", false);' >> /etc/firefox/syspref.js
+
+RUN mkdir -p /root/.config/tint2
+COPY tint2rc /root/.config/tint2/
 
 WORKDIR /tmp/download
 RUN wget https://community-static.aldebaran.com/resources/2.1.4.13/sdk-python/pynaoqi-python2.7-2.1.4.13-linux64.tar.gz
@@ -17,20 +36,9 @@ WORKDIR /tmp/naodev
 RUN tar zxvf /tmp/download/pynaoqi-python2.7-2.1.4.13-linux64.tar.gz
 RUN tar zxvf /tmp/download/choregraphe-suite-2.1.4.13-linux64.tar.gz
 RUN tar zxvf /tmp/download/naoqi-sdk-2.1.4.13-linux64.tar.gz
-#RUN echo "export PYTHONPATH=${PYTHONPATH}:/tmp/naodev/pynaoqi-python2.7-2.1.4.13-linux64" >> /home/ubuntu/.bashrc
 
-WORKDIR /miniconda3
-RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-RUN bash /miniconda3/miniconda.sh -b -u -p /miniconda3
-RUN rm -rf /miniconda3/miniconda.sh
-
-WORKDIR /tmp/naodev
-COPY testnao.py .
-COPY init.sh .
-COPY bashrc .
-
-EXPOSE 5900
-EXPOSE 6080
+EXPOSE 8080
+ENTRYPOINT ["/bin/bash", "-c", "/usr/bin/supervisord"]
 
 # to build:
 #   docker build . -t nao-sdk-v5
