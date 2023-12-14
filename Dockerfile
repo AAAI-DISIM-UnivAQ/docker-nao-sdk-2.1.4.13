@@ -20,7 +20,7 @@ RUN tar zxvf /tmp/download/pynaoqi-python2.7-2.1.4.13-linux32.tar.gz
 RUN tar zxvf /tmp/download/choregraphe-suite-2.1.4.13-linux32.tar.gz
 RUN tar zxvf /tmp/download/naoqi-sdk-2.1.4.13-linux32.tar.gz
 
-EXPOSE 8080
+EXPOSE 6079
 
 # to build:
 #   docker build . -t nao-sdk-v5
